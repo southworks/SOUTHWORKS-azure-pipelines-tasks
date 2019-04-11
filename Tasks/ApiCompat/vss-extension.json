@@ -1,5 +1,5 @@
 {
-     "manifestVersion": 1,
+    "manifestVersion": 1,
     "id": "binaries-comparer-stable-fuselabs",
     "name": "Binaries Comparer",
     "version": "0.1.1",
@@ -8,13 +8,13 @@
         {
             "id": "Microsoft.VisualStudio.Services"
         }
-    ],    
+    ],
     "description": "Compares binaries to test incompatibilities",
     "categories": [
         "Azure Pipelines"
     ],
     "icons": {
-        "default": "images/extension-icon.png"        
+        "default": "images/extension-icon.png"
     },
     "files": [
         {
