@@ -9,7 +9,7 @@ class App {
     public run(): void {
         try {
             // Create ApiCompat path
-            const ApiCompatPath = join(__dirname, 'ApiCompat', 'Microsoft.DotNet.ApiCompat.exe');
+            const ApiCompatPath = join(__dirname, '..', 'ApiCompat', 'Microsoft.DotNet.ApiCompat.exe');
 
             // Get the binaries to compare and create the command to run
             const inputFiles: string = this.getInputFiles();
