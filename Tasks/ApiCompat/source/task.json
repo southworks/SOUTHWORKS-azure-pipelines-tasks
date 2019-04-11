@@ -69,7 +69,7 @@
             "type": "boolean",
             "label": "Create Comparison result log",
             "required": true,
-            "helpMarkDown": "If selected, a log will be created with the result of the comparisson",
+            "helpMarkDown": "If selected, a log will be created with the result of the comparisson"
         },
         {
             "name": "outputFilename",
