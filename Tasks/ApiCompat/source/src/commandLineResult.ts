@@ -1,59 +1,57 @@
-import { TaskResult, getInput, getBoolInput } from "azure-pipelines-task-lib";
+import { TaskResult, getBoolInput } from 'azure-pipelines-task-lib';
 
-export default class CommandLineResult {
-    private _totalIssues: number;
-    private _body: string;
-    private red: string = "\x1b[31m";
-    private green: string = "\x1b[32m";
-    private yellow: string = "\x1b[33m";
+const red = '\x1b[31m';
+const green = '\x1b[32m';
+const yellow = '\x1b[33m';
+
+export class CommandLineResult {
     private failOnIssue: boolean = getBoolInput('failOnIssue');
 
-    get totalIssues() {
-        return this._totalIssues;
+    public readonly totalIssues: number;
+    public readonly body: string;
+
+    public constructor(result: string) {
+        const indexOfTotalIssues = result.indexOf('Total Issues');
+
+        this.totalIssues = this.getTotalIssues(result, indexOfTotalIssues);
+        this.body = this.getBody(result, indexOfTotalIssues);
     }
 
-    get body() {
-        return this._body;
-    }
-
-    constructor(result: string) {
-        const indexOfTotalIssues = result.indexOf("Total Issues");
-        
-        this._totalIssues = this.getTotalIssues(result, indexOfTotalIssues);
-        this._body = this.getBody(result, indexOfTotalIssues);
-    }
-
-    private getTotalIssues = (message: string, indexOfTotalIssues: number): number => {
+    private getTotalIssues(message: string, indexOfTotalIssues: number): number {
         return parseInt(message.substring(indexOfTotalIssues).split(':')[1].trim(), 10);
     }
-    
-    private getBody = (message: string, indexOfTotalIssues: number): string => {
+
+    private getBody(message: string, indexOfTotalIssues: number): string {
         return message.substring(0, indexOfTotalIssues - 1);
     }
 
-    public resultText() {
+    public resultText(): string {
         return this.totalIssues ?
-        `There were differences between the assemblies` :
-        `No differences were found between the assemblies`;
+            'There were differences between the assemblies':
+            'No differences were found between the assemblies';
     }
 
-    public compatibilityResult = (): TaskResult => {
-        if (this._totalIssues  === 0) {
+    public compatibilityResult(): TaskResult {
+        if (this.totalIssues === 0) {
             return TaskResult.Succeeded;
-        } else if (this.failOnIssue) {
-            return TaskResult.Failed;
-        } else {
-            return TaskResult.SucceededWithIssues;
         }
+
+        if (this.failOnIssue) {
+            return TaskResult.Failed;
+        }
+
+        return TaskResult.SucceededWithIssues;
     }
 
-    public colorCode = (): string => {
-        if (this._totalIssues === 0) {
-            return this.green;
-        } else if (this.failOnIssue) {
-            return this.red;
-        } else {
-            return this.yellow;
+    public colorCode(): string {
+        if (this.totalIssues === 0) {
+            return green;
         }
+
+        if (this.failOnIssue) {
+            return red;
+        }
+
+        return yellow;
     }
 }
