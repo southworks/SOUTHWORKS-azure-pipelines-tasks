@@ -60,8 +60,8 @@ const runCommand = (command: string): void => {
 }
 
 const writeResult = (body: string, issues: number): void => {
-    const fileName: string = validatePath('outputFilename');
-    const directory: string = validatePath('outputFolder');
+    const fileName: string = getInput('outputFilename');
+    const directory: string = getInput('outputFolder');
     const result: any = {
         issues: issues,
         body: issues === 0 ? `No issues found in ${ getInput('contractsFileName') }` : body
