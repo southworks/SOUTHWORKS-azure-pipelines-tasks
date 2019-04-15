@@ -2,7 +2,7 @@
     "manifestVersion": 1,
      "id": "github-pr-comment-multiple-files",
      "name": "github-pr-comment-multiple-files",
-     "version": "0.0.45",
+     "version": "0.2.1",
      "publisher": "Southworks-Pipelines-Test",
      "targets": [
          {
