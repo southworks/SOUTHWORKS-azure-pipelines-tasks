@@ -1,0 +1,75 @@
+{
+    "id": "{A unique GUID}",
+    "name": "{name-with-no-spaces}",
+    "friendlyName": "{Dislay Name}",
+    "description": "{Short description of the task}",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "{Author of the task}",
+    "version": {
+        "Major": 0,
+        "Minor": 1,
+        "Patch": 0
+    },
+    "instanceNameFormat": "{Generic display text to show in the build. Input field can be used as variable.}",
+    "inputs": [
+        {
+            "name": "filepath-input-field",
+            "type": "filepath",
+            "label": "Filepath input field",
+            "required": true,
+            "helpMarkDown": "Opens a folder explorer to select a path or file"
+        },
+        {
+            "name": "text-input-field",
+            "type": "text",
+            "label": "Text input field",
+            "required": true,
+            "helpMarkDown": "Textbox for small strings"
+        },
+        {
+            "name": "multiline-input-field",
+            "type": "multiline",
+            "label": "Text input field",
+            "required": true,
+            "helpMarkDown": "Textbox for large/multiline texts"
+        },
+        {
+            "name": "boolean-input-field",
+            "type": "boolean",
+            "label": "Boolean input field",
+            "required": true,
+            "helpMarkDown": "Simple checkbox for 'true' or 'false'"
+        },
+        {
+            "name": "radio-input-field",
+            "type": "radio",
+            "label": "Radio input field",
+            "required": false,
+            "helpMarkDown": "Radio options selectors",
+            "defaultValue": "option1",
+            "options": {
+                "option1": "First option",
+                "option2": "Second option"
+            }
+        },
+        {
+            "name": "pickList-input-field",
+            "type": "pickList",
+            "label": "Picklist input field",
+            "required": false,
+            "defaultValue": "None",
+            "helpMarkDown": "Combo box with multiple options to choose from",
+            "options": {
+                "option1": "First element of the pickList",
+                "option2": "Second element of the pickList",
+                "option3": "Third element of the pickList"
+            }
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": "./lib/index.js"
+        }
+    }
+}
