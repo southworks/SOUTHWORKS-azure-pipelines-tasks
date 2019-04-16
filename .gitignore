@@ -210,3 +210,6 @@ _Pvt_Extensions/
 ModelManifest.xml
 /Package
 LoadTest.code-workspace
+
+# Compiled tasks files
+.vsix
