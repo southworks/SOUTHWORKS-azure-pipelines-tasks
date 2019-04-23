@@ -1,0 +1,4 @@
+Compat issues with assembly Microsoft.Bot.Builder:
+TypesMustExist : Type 'Microsoft.Bot.Builder.Adapters.BotFrameworkAdapter' does not exist in the implementation but it does exist in the contract.
+TypesMustExist : Type 'Microsoft.Bot.Builder.BotFramework.ConfigurationCredentialProvider' does not exist in the implementation but it does exist in the contract.
+Total Issues: 2

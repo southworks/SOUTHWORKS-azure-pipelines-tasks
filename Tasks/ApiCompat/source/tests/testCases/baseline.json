@@ -1,0 +1,23 @@
+{
+	"description": "should not fail nor return issues when using a baseline file",
+	"timeout": 5000,
+	"inputs": {
+		"contractsRootFolder": ["..", "..", "..", "tests", "testLibraries", "4.0.0"],
+		"contractsFileName": "Microsoft.Bot.Builder.dll",
+		"implFolder": ["..", "..", "..", "tests", "testLibraries", "4.3.2"],
+		"failOnIssue": true,
+		"resolveFx": false,
+		"warnOnIncorrectVersion": false,
+		"warnOnMissingAssemblies": false,
+		"generateLog": false,
+		"outputFilename": "",
+		"outputFolder": "",
+		"useBaseline": true,
+		"baselineFile": ["..", "..", "..", "tests", "testFiles", "baseline.txt"]
+	},
+	"expected": {
+		"succeeded": true,
+		"warningIssues": [],
+		"errorIssues": []
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"description": "should not return incompatibilities with patch changes",
+	"timeout": 2000,
+	"inputs": {
+		"contractsRootFolder": ["..", "..", "..", "tests", "testLibraries", "4.3.1"],
+		"contractsFileName": "Microsoft.Bot.Builder.dll",
+		"implFolder": ["..", "..", "..", "tests", "testLibraries", "4.3.2"],
+		"failOnIssue": false,
+		"resolveFx": false,
+		"warnOnIncorrectVersion": false,
+		"warnOnMissingAssemblies": false,
+		"generateLog": false,
+		"outputFilename": "",
+		"outputFolder": "",
+		"useBaseline": false,
+		"baselineFile": ""
+	},
+	"expected": {
+		"succeeded": true,
+		"warningIssues": [],
+		"errorIssues": []
+	}
+}
