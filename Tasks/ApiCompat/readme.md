@@ -1,3 +1,5 @@
+This is an Azure Pipelines encapsulation of the ApiCompat tool. To get the lastest version of this tool please visit [dotnet/arcade](https://github.com/dotnet/arcade/tree/master/src/Microsoft.DotNet.ApiCompat) repo. We do not own the original tool, we just created this task to have an easy way to use it on Azure Pipelines.
+
 # ApiCompat task
 
 API Compat tool compares two sets of assemblies and determines if the implementation has incompatibilities with the contract.
