@@ -5,7 +5,7 @@ export class ApiCompat {
     private apiCompatPath: string;
 
     public constructor() {
-        this.apiCompatPath = join(__dirname, '..', 'ApiCompat', 'Microsoft.DotNet.ApiCompat.exe');
+        this.apiCompatPath = join(__dirname, '..', '..', 'ApiCompat', 'Microsoft.DotNet.ApiCompat.exe');
     }
 
     public getVersion = (): string => {
