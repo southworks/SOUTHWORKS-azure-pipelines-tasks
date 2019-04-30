@@ -61,7 +61,7 @@ class App {
     }
 
     private writeResult(body: string, issues: number): void {
-        const fileName: string = this.validatePath('outputFilename');
+        const fileName: string = getInput('outputFilename');
         const directory: string = this.validatePath('outputFolder');
         const result: { issues: number; body: string } = {
             issues: issues,
