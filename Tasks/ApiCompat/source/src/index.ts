@@ -26,7 +26,7 @@ const writeResult = (result: Result, configuration: Configuration): void => {
     const directory: string = configuration.outputFolder;
     
     const resultText: string = result.issuesCount === 0
-        ? `:heavy_check_mark: No Binary Compatibility issues for ${ configuration.contract }`
+        ? `#### :heavy_check_mark: No Binary Compatibility issues for ${ configuration.contract }`
         : result.getFormattedResult()
         
     if (!existsSync(directory)) {
