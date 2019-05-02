@@ -1,89 +1,65 @@
-import { join } from 'path'
-import { getInput, setResult, TaskResult, getBoolInput } from 'azure-pipelines-task-lib';
-import { execSync } from "child_process";
+import { setResult, TaskResult } from 'azure-pipelines-task-lib';
+import { ApiCompat } from './ApiCompat'
+import { Configuration } from './Configuration'
+import { Result } from './Result';
 import { existsSync, writeFileSync, mkdirSync } from 'fs';
-import { CommandLineResult } from './commandLineResult';
-import { ApiCompatCommand } from './apiCompatCommand';
+import { EOL } from 'os';
+import { join } from 'path'
 
-class App {
-    public run(): void {
-        try {
-            // Create ApiCompat path
-            const ApiCompatPath = join(__dirname, '..', 'ApiCompat', 'Microsoft.DotNet.ApiCompat.exe');
+const getOptionalParameters = (configuration: Configuration): string => {
+    let command = configuration.resolveFx ? ' --resolve-fx' : '';
+    command += configuration.warnOnIncorrectVersion ? ' --warn-on-incorrect-version' : '';
+    command += configuration.warnOnMissingAssemblies ? ' --warn-on-missing-assemblies' : '';
+    command += configuration.useBaseline ? ` --baseline "${ configuration.baselineFile }"` : '';
 
-            // Get the binaries to compare and create the command to run
-            const inputFiles: string = this.getInputFiles();
-            const apiCompatCommands: ApiCompatCommand = new ApiCompatCommand(ApiCompatPath, inputFiles);
+    return command;
+}
 
-            // Show the ApiCompat version
-            console.log(execSync(apiCompatCommands.version).toString());
+const resultText = (result: Result): string => {
+    return result.issuesCount != 0
+        ? `There were ${ result.issuesCount } differences between the assemblies`
+        : 'No differences were found between the assemblies';
+}
 
-            // Run the ApiCompat command
-            this.runCommand(apiCompatCommands.command);
-        } catch (error) {
-            setResult(TaskResult.Failed, error);
-        }
+const writeResult = (result: Result, configuration: Configuration): void => {
+    const fileName: string = configuration.outputFileName;
+    const directory: string = configuration.outputFolder;
+    
+    const resultText: string = result.issuesCount === 0
+        ? `#### :heavy_check_mark: No Binary Compatibility issues for ${ configuration.contract }`
+        : result.getFormattedResult()
+        
+    if (!existsSync(directory)) {
+        mkdirSync(directory, { recursive: true });
     }
+    
+    writeFileSync(`${join(directory, fileName)}`, resultText );
+}
 
-    private getInputFiles(): string {
-        const filesName: string[] = [];
+const run = (): void => {
+    try {
+        const apiCompat: ApiCompat = new ApiCompat();
+        const configuration: Configuration = new Configuration();
+        
+        console.log(apiCompat.getVersion());
 
-        getInput('contractsFileName').split(' ').forEach((file: string): void => {
-            const fullFilePath: string = join(this.validatePath('contractsRootFolder'), file);
-            if (existsSync(fullFilePath)) {
-                filesName.push(fullFilePath);
-            }
-        });
+        const optionalParameters = getOptionalParameters(configuration);
+        const comparisonResult = apiCompat.compare(
+            configuration.contractList,
+            configuration.implementationFolder,
+            optionalParameters);
+        const result: Result = new Result(comparisonResult);
+        
+        console.log(comparisonResult.concat(EOL));
 
-        if (filesName.length == 0) {
-            throw new Error('The specified contracts were not found.');
+        if (configuration.generateLog) {
+            writeResult(result, configuration);
         }
-
-        return filesName.join(',');
-    }
-
-    private runCommand(command: string): void {
-        console.log(command);
-
-        const result = execSync(command).toString();
-        const commandLineResult = new CommandLineResult(result);
-        const totalIssues = commandLineResult.totalIssues;
-        const resultText = commandLineResult.resultText();
-
-        if (getBoolInput('generateLog')) {
-            this.writeResult(commandLineResult.body, commandLineResult.totalIssues);
-        }
-
-        console.log(commandLineResult.body +
-            commandLineResult.colorCode() +
-            'Total Issues : ' + totalIssues);
-        setResult(commandLineResult.compatibilityResult(), resultText);
-    }
-
-    private writeResult(body: string, issues: number): void {
-        const fileName: string = getInput('outputFilename');
-        const directory: string = this.validatePath('outputFolder');
-        const result: { issues: number; body: string } = {
-            issues: issues,
-            body: issues === 0 ? `No issues found in ${ getInput('contractsFileName') }` : body
-        }
-
-        if (!existsSync(directory)) {
-            mkdirSync(directory, { recursive: true });
-        }
-
-        writeFileSync(`${join(directory, fileName)}`, JSON.stringify(result, null, 2) );
-    }
-
-    private validatePath(inputName: string): string {
-        const path = getInput(inputName);
-
-        if (!existsSync(path)) {
-            throw new Error(`The file or directory "${ path }" specified in "${ inputName }" does not exist.`);
-        }
-
-        return path;
+        
+        setResult(result.checkResult(configuration), resultText(result));
+    } catch (error) {
+        setResult(TaskResult.Failed, error);
     }
 }
 
-new App().run();
+run();
