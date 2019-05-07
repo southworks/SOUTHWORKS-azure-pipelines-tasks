@@ -1,9 +1,9 @@
 {
     "manifestVersion": 1,
-     "id": "github-pr-comment-multiple-files",
-     "name": "github-pr-comment-multiple-files",
-     "version": "0.2.1",
-     "publisher": "Southworks-Pipelines-Test",
+     "id": "github-pr-comment",
+     "name": "GitHub PR Comment",
+     "version": "0.1.0",
+     "publisher": "SOUTHWORKS",
      "targets": [
          {
              "id": "Microsoft.VisualStudio.Services"
@@ -15,6 +15,23 @@
      ],
     "icons": {
          "default": "images/extension-icon.png"        
+     },
+     "content": {
+         "details": {
+             "path": "readme.md"
+         }
+     },
+     "links": {
+         "repository": {
+             "uri": "https://github.com/southworkscom/SOUTHWORKS-azure-pipelines-tasks/tree/master/Tasks/ApiCompat"
+         },
+         "issues": {
+             "uri": "https://github.com/southworkscom/SOUTHWORKS-azure-pipelines-tasks/issues"
+         }
+     },
+     "repository": {
+         "type": "git",
+         "uri": "https://github.com/southworkscom/SOUTHWORKS-azure-pipelines-tasks/tree/master/Tasks/ApiCompat"
      },
     "files": [
          {
@@ -32,5 +49,8 @@
                  "name": "githubComment"
              }
      }
+     ],
+     "galleryFlags": [
+         "Public"
      ]
 }
