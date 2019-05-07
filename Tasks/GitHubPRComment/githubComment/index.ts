@@ -11,7 +11,7 @@ const clientWithAuth = new gitClient({
 
 
 async function run() {
-    var files = getFilesFromDir(taskLibrary.getInput('bodyFilePath'), ".json", taskLibrary.getBoolInput('getSubFolders'))
+    var files = getFilesFromDir(taskLibrary.getInput('bodyFilePath'), '.' + taskLibrary.getInput('extension'), taskLibrary.getBoolInput('getSubFolders'))
     var message = combineMessageBody(files);
     var repo = taskLibrary.getInput('repository').split('/');
 
@@ -19,7 +19,7 @@ async function run() {
         owner: repo[0],
         repo: repo[1],
         number: parseInt(taskLibrary.getInput('prNumber')),
-        body: "\`\`\`\r\n" + message + "\r\n\`\`\`"
+        body: "\r\n" + message + "\r\n"
     };
     
     await clientWithAuth.issues.createComment(comment).then(res => {
@@ -63,8 +63,9 @@ const combineMessageBody = (files: string[]): string => {
     var body:string = "";
     files.forEach(file => {
         var bodyFile = fs.readFileSync(file);
-        var fileObject = JSON.parse(bodyFile.toString());
-        body += fileObject["body"].toString() + "\r\n";
+       // var fileObject = JSON.parse(bodyFile.toString());
+       // body += fileObject["body"].toString() + "\r\n";
+       body += bodyFile + "\r\n";
     });
     return body;
 }
