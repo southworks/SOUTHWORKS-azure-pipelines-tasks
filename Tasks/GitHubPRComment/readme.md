@@ -32,13 +32,13 @@ We prepared a simple example using the task by creating a pull request from a br
 
 #### Azure Pipelines Setup
 
-![PipelineSettings1](images/BasicGuide/PipelineSettings1.png)
+![PipelineSettings1](https://user-images.githubusercontent.com/42191764/56990659-09689680-6b6c-11e9-920f-522f77680923.png)
 
-![PipelineSettings2](images/BasicGuide/PipelineSettings2.png)
+![PipelineSettings2](https://user-images.githubusercontent.com/42191764/56991005-03bf8080-6b6d-11e9-9ee8-a5dd6e136e75.png)
 
-![PipelineSettings3](images/BasicGuide/PipelineSettings3.png)
+![PipelineSettings3](https://user-images.githubusercontent.com/42191764/56991007-0621da80-6b6d-11e9-8d50-875e68597125.png)
 
 #### [Results](https://github.com/southworkscom/SOUTHWORKS-azure-pipelines-tasks/pull/12)
 
-![PipelineResults](images/BasicGuide/PipelineResults.png)
+![PipelineResults](https://user-images.githubusercontent.com/42191764/56991010-07530780-6b6d-11e9-8e13-7bc79e83e4af.png)
 
