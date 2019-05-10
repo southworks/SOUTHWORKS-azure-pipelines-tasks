@@ -1,20 +1,37 @@
 {
-     "manifestVersion": 1,
-    "id": "binaries-comparer-stable-fuselabs",
+    "manifestVersion": 1,
+    "id": "binaries-comparer",
     "name": "Binaries Comparer",
-    "version": "0.1.1",
-    "publisher": "Southworks-pipelines-test",
+    "version": "0.2.1",
+    "publisher": "SOUTHWORKS",
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
         }
-    ],    
+    ],
     "description": "Compares binaries to test incompatibilities",
     "categories": [
         "Azure Pipelines"
     ],
     "icons": {
-        "default": "images/extension-icon.png"        
+        "default": "images/extension-icon.png"
+    },
+    "content": {
+        "details": {
+            "path": "readme.md"
+        }
+    },
+    "links": {
+        "repository": {
+            "uri": "https://github.com/southworkscom/SOUTHWORKS-azure-pipelines-tasks/tree/master/Tasks/ApiCompat"
+        },
+        "issues": {
+            "uri": "https://github.com/southworkscom/SOUTHWORKS-azure-pipelines-tasks/issues"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/southworkscom/SOUTHWORKS-azure-pipelines-tasks/tree/master/Tasks/ApiCompat"
     },
     "files": [
         {
@@ -34,6 +51,6 @@
         }
     ],
     "galleryFlags": [
-        "Preview"
+        "Public"
     ]
 }
