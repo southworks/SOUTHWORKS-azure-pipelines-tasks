@@ -34,9 +34,30 @@
         "uri": "https://github.com/southworkscom/SOUTHWORKS-azure-pipelines-tasks/tree/master/Tasks/ApiCompat"
     },
     "files": [
-        {
-            "path": "source"
-        }
+		{
+			"path": "source/lib/"
+		},
+		{
+			"path": "source/ApiCompat/"
+		},
+		{
+			"path": "source/node_modules/"
+		},
+		{
+			"path": "source/.eslintrc.js"
+		},
+		{
+			"path": "source/icon.png"
+		},
+		{
+			"path": "source/package.json"
+		},
+		{
+			"path": "source/task.json"
+		},
+		{
+			"path": "source/tsconfig.json"
+		}
     ],
     "contributions": [
         {
