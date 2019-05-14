@@ -29,7 +29,7 @@ export class Result {
         const icon: string = this.issuesCount == 0 ? ':heavy_check_mark:' : ':x:';
         const codeFence = '```';
         const title: string = `#### ${ icon } ${ this.issuesCount } Binary Compatibility issues for **${ this.assemblyName }**`;
-        const body = `<details>${ EOL + EOL + codeFence + EOL + this.issues + EOL + codeFence + EOL + EOL }</details>${ EOL }`;
+        const body = `<details>${ EOL + EOL + codeFence + EOL + this.issues + EOL + codeFence + EOL + EOL }</details>`;
     
         return (title.concat(EOL).concat(body));
     }
