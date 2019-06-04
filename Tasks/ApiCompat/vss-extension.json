@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "binaries-comparer",
     "name": "Binaries Comparer",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "publisher": "SOUTHWORKS",
     "targets": [
         {
