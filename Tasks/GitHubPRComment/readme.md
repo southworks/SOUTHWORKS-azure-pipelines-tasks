@@ -40,5 +40,6 @@ We prepared a simple example using the task by creating a pull request from a br
 
 #### [Results](https://github.com/southworkscom/SOUTHWORKS-azure-pipelines-tasks/pull/12)
 
-![PipelineResults](https://user-images.githubusercontent.com/42191764/56991010-07530780-6b6d-11e9-8e13-7bc79e83e4af.png)
+![PipelineResults](https://user-images.githubusercontent.com/42191764/59930566-83edbe00-9419-11e9-9f84-571c719ce706.png)
+
 
