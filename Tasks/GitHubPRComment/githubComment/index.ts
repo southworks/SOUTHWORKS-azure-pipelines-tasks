@@ -18,7 +18,7 @@ async function run() {
     const comment: gitClient.IssuesCreateCommentParams = {
         owner: repo[0],
         repo: repo[1],
-        number: parseInt(taskLibrary.getInput('prNumber')),
+        issue_number: parseInt(taskLibrary.getInput('prNumber')),
         body: "\r\n" + message + "\r\n"
     };
     
