@@ -9,7 +9,7 @@
              "id": "Microsoft.VisualStudio.Services"
          }
      ],    
-    "description": "Compares binaries to test incompatibilities",
+    "description": "Automatically creates a comment on a Pull Request",
     "categories": [
          "Azure Pipelines"
      ],
