@@ -2,6 +2,7 @@ import taskLibrary = require('azure-pipelines-task-lib/task');
 import { execSync } from "child_process";
 import { SubscriptionHelper } from './subscriptionHelper';
 import { InputValues } from './inputValues';
+import { DeploymentParameters } from "./deploymentParameters";
 
 const input = new InputValues();
 const rootPath = taskLibrary.getVariable('System.DefaultWorkingDirectory');
@@ -23,23 +24,44 @@ const azureLogin = (helper: SubscriptionHelper): void => {
     }
 }
 
-const getOptionalParameters = (): string => {
-    let command = input.slackVerificationToken? ` slackVerificationToken="${ input.slackVerificationToken }"`: '';
-    command += input.slackBotToken ? ` slackBotToken="${ input.slackBotToken }"` : '';
-    command += input.slackClientSigningSecret ? ` slackClientSigningSecret="${ input.slackClientSigningSecret }"` : '';
+const getParameters = (): string => {
 
-    return command;
+    const deploymentParams = new DeploymentParameters({
+        template: input.template,
+        parameters: input.templateParameters
+    });
+
+    let params = deploymentParams.getDeploymentData(input);
+
+    // if(!!this.deploymentParameters){
+    //     params.location = this.deploymentParameters.location;
+    // }
+
+    // this.deploymentParameters = params;
+
+    let parameters = input.templateParameters? ` --parameters "${ input.templateParameters }"` : '';  
+    parameters += ` --parameters appId="${ input.appId }" appSecret="${ input.appSecret }" botId="${ input.botName }"`;
+    // parameters += ` botSku="${ input.botSku }" newAppServicePlanName="${ input.botName }" newWebAppName=${ input.botName } groupName="${ input.resourceGroup }"`;
+    // parameters += ` groupLocation="${ input.location }" newAppServicePlanLocation="${ input.location }"`;  
+
+    return parameters;
+}
+
+const getSlackParameters = (): string => {
+    let parameters = input.slackVerificationToken? ` slackVerificationToken="${ input.slackVerificationToken }"`: '';
+    parameters += input.slackBotToken ? ` slackBotToken="${ input.slackBotToken }"` : '';
+    parameters += input.slackClientSigningSecret ? ` slackClientSigningSecret="${ input.slackClientSigningSecret }"` : '';
+
+    return parameters;
 }
 
 const validateDeployment = (): void => {
     try {
         console.log('Validating Deployment...');
 
-        let command = `az deployment validate --location "${ input.location }" --template-file "${ input.template }" `;
-            command += `--parameters appId="${ input.appId }" appSecret="${ input.appSecret }" botId="${ input.botName }" `;
-            command += `botSku="${ input.botSku }" newAppServicePlanName="${ input.botName }" newWebAppName=${ input.botName } groupName="${ input.resourceGroup }" `;
-            command += `groupLocation="${ input.location }" newAppServicePlanLocation="${ input.location }"`;
-            command += getOptionalParameters();
+        let command = `az deployment validate --location "${ input.location }" --template-file "${ input.template }"`;
+            command += getParameters();            
+            command += getSlackParameters();
 
         execSync(command);
         console.log('Deployment successfully validated');      
@@ -52,11 +74,9 @@ const resourcesDeployment = (): void => {
     try {
         console.log('Deploying resources to Azure...');
 
-        let command = `az deployment create --name "${ input.resourceGroup }" --location "${ input.location }" --template-file "${ input.template }" `;
-            command += `--parameters appId="${ input.appId }" appSecret="${ input.appSecret }" botId="${ input.botName }" `;
-            command += `botSku="${ input.botSku }" newAppServicePlanName="${ input.botName }" newWebAppName=${ input.botName } groupName="${ input.resourceGroup }" `;
-            command += `groupLocation="${ input.location }" newAppServicePlanLocation="${ input.location }"`;
-            command += getOptionalParameters();
+        let command = `az deployment create --name "${ input.resourceGroup }" --location "${ input.location }" --template-file "${ input.template }"`;
+            command += getParameters(); 
+            command += getSlackParameters();
 
         execSync(command);
         console.log('Successful deployment');      

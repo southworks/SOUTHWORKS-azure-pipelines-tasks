@@ -2,7 +2,7 @@
     "manifestVersion": 1,
      "id": "bot-deployment",
      "name": "Bot Deployment",
-     "version": "0.5.1",
+     "version": "0.6.3",
      "publisher": "Southworks-Pipelines-Test",
      "targets": [
          {
@@ -27,7 +27,7 @@
          }
      ],
     "contributions": [
-         {
+        {
              "id": "custom-bot-deployment-task",
              "type": "ms.vss-distributed-task.task",
              "targets": [
@@ -36,7 +36,7 @@
              "properties": {
                  "name": "botDeployment"
              }
-     }
+        }
      ],
      "galleryFlags": [
          "Public"

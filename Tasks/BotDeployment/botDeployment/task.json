@@ -8,8 +8,8 @@
     "author": "SOUTHWORKS",
     "version": {
         "Major": 0,
-        "Minor": 5,
-        "Patch": 1
+        "Minor": 6,
+        "Patch": 3
     },
     "instanceNameFormat": "Bot Deployment",
     "groups": [
@@ -80,6 +80,26 @@
             "groupname": "template"
         },
         {
+            "name": "templateParameters",
+            "type": "filepath",
+            "label": "Template Parameters",
+            "required": false,
+            "helpMarkDown": "Specify the path or a pattern pointing for the parameters file for the Azure Resource Manager template.",
+            "groupname": "template"
+        },
+        {
+            "name": "overrideParameters",
+            "type": "multiLine",
+            "label": "Override Template Parameters",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "To view the template parameters in a grid, click on “…” next to Override Parameters textbox. This feature requires that CORS rules are enabled at the source. If templates are in Azure storage blob, refer to [this](https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/Cross-Origin-Resource-Sharing--CORS--Support-for-the-Azure-Storage-Services?redirectedfrom=MSDN#understanding-cors-requests) to enable CORS. Or type the template parameters to override in the textbox. Example, <br>–storageName fabrikam –adminUsername $(vmusername) -adminPassword $(password) –azureKeyVaultName $(fabrikamFibre).<br>If the parameter value you're using has multiple words, enclose them in quotes, even if you're passing them using variables. For example, -name \"parameter value\" -name2 \"$(var)\"<br>To override object type parameters use stringified JSON objects. For example, -options [\"option1\"] -map {\"key1\": \"value1\" }. ",
+            "properties": {
+                "editorExtension": "ms.vss-services-azure.azurerg-parameters-grid"
+            },
+            "groupName": "template"
+        },
+        {
             "name": "appId",
             "type": "text",
             "label": "App ID",
@@ -109,14 +129,6 @@
             "label": "Zipped Bot",
             "required": true,
             "helpMarkDown": "Specify the path to the compressed zip folder containing the bot.",
-            "groupname": "bot"
-        },
-        {
-            "name": "botSku",
-            "type": "text",
-            "label": "Bot Sku",
-            "required": false,
-            "helpMarkDown": "Specify the pricing tier of the Bot Service Registration. Acceptable values are F0 and S1. Default to F0.",
             "groupname": "bot"
         },
         {

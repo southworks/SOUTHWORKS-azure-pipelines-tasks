@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/southworks/SOUTHWORKS-azure-pipelines-tasks#readme",
   "dependencies": {
-    "azure-pipelines-task-lib": "^2.9.3"
+    "azure-pipelines-task-lib": "^2.9.3",
+    "xtend": "^4.0.2"
   },
   "devDependencies": {
     "@types/node": "^12.12.21",

@@ -6,11 +6,13 @@ export class InputValues {
     public resourceGroup: string;
     public location: string;
     public template: string;
+    public templateParameters?: string;
+    public overrideParameters?: string = '';
     public appId: string;
     public appSecret: string;
     public botName: string;
     public zipFile: string;
-    public botSku?: string = 'F0';
+    //public botSku?: string = 'F0';
     public directLineChannel?: boolean;
     public slackChannel?: boolean;
     public slackVerificationToken?: string = '';
@@ -22,11 +24,13 @@ export class InputValues {
         this.resourceGroup = getInput('resourceGroup', true) as string;
         this.location = getInput('location', true) as string;
         this.template = this.validatePath('template');
+        this.templateParameters = getInput('templateParameters', false)? this.validatePath('templateParameters') : '';
+        this.overrideParameters = getInput('overrideParameters', false);
         this.appId = getInput('appId', true) as string;
         this.appSecret = getInput('appSecret', true) as string;
         this.botName = getInput('botName', true) as string;
         this.zipFile = this.validatePath('zipFile');
-        this.botSku = getInput('botSku', false) as string;
+        //this.botSku = getInput('botSku', false) as string;
         this.directLineChannel = getBoolInput('directLineChannel', false);        
         this.slackChannel = getBoolInput('slackChannel', false);
         
@@ -47,5 +51,5 @@ export class InputValues {
         }
     
         return path;
-    }    
+    }
 }
