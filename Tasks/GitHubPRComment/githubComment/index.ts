@@ -8,8 +8,6 @@ const clientWithAuth = new gitClient({
     userAgent: 'octokit/rest.js v1.2.3',
 });
 
-
-
 async function run() {
     var files = getFilesFromDir(taskLibrary.getInput('bodyFilePath'), '.' + taskLibrary.getInput('extension'), taskLibrary.getBoolInput('getSubFolders'))
     var message = combineMessageBody(files);
@@ -18,10 +16,10 @@ async function run() {
     const comment: gitClient.IssuesCreateCommentParams = {
         owner: repo[0],
         repo: repo[1],
-        issue_number: parseInt(taskLibrary.getInput('prNumber')),
+        number: parseInt(taskLibrary.getInput('prNumber')),
         body: "\r\n" + message + "\r\n"
     };
-    
+
     await clientWithAuth.issues.createComment(comment).then(res => {
         console.log(res);
     })
@@ -31,7 +29,6 @@ async function run() {
 }
 
 const getFilesFromDir = (filePath: string, extName: string, recursive: boolean): string[] => {
-    
     if (!fs.existsSync(filePath)){
         console.log("File path does not exist: ",filePath);
         return [];
@@ -55,7 +52,7 @@ const iterateFilesFromDir = (filePath: string, extName: string, recursive: boole
             result.push(fileName);
         } 
     });
-    
+
     return result;
 }
 

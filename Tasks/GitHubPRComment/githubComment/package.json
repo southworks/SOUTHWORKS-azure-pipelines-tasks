@@ -17,7 +17,7 @@
   "author": "ParadoxArg",
   "license": "ISC",
   "dependencies": {
-    "@octokit/rest": "^16.21.0",
+    "@octokit/rest": "16.21.0",
     "azure-pipelines-task-lib": "^2.8.0"
   },
   "devDependencies": {
