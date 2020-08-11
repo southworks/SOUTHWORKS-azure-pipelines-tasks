@@ -2,7 +2,7 @@
     "manifestVersion": 1,
      "id": "github-pr-comment",
      "name": "GitHub PR Comment",
-     "version": "0.1.0",
+     "version": "0.1.2",
      "publisher": "SOUTHWORKS",
      "targets": [
          {
