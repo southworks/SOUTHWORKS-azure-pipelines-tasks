@@ -1,0 +1,36 @@
+{
+    "manifestVersion": 1,
+    "id": "{name-with-no-spaces}",
+    "name": "{Display name}",
+    "version": "0.0.1",
+    "publisher": "{generic-publisher}",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "description": "{Short description of the task functionality}",
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "icons": {
+        "default": "images/extension-icon.png"
+    },
+    "files": [
+        {
+            "path": "{Path to where the task.json resides}"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "custom-build-release-task",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "source"
+            }
+        }
+    ]
+}
