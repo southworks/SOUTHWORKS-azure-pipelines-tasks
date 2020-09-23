@@ -38,7 +38,7 @@ Before submitting **issues**, **feature requests**, or **questions**, please do 
 
 ### Submit contribution
 
-Pull Requests are a great way to keep track of tasks, enhancements, and bugs for projects. When we are writing them, we must think about, how the rest of the team is going to read it? What kind of information we will place in it to make it easy to read and understand their changes?. Follow these practices to help you to write great pull requests.
+Pull Requests are a great way to keep track of tasks, enhancements, and bugs for projects. When we are writing them, we must think about, how the rest of the team is going to read it? What kind of information we will place in it to make it easy to read and understand its changes?. Follow these practices to help you to write great pull requests.
 
 #### Writing great pull requests
 
