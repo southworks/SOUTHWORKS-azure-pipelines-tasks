@@ -15,6 +15,7 @@ export class ApiCompat {
     public compare = (contracts: string, implementation: string, optionalParameters?: string): string => {
         const options = optionalParameters != undefined ? optionalParameters : '';
         const command = `"${ contracts }" --impl-dirs "${ implementation }" ${ options }`;
+        console.log(command);
         return this.runCommand(command);
     }
 
