@@ -24,7 +24,7 @@ async function run() {
         console.log(res);
     })
     .catch(err => {
-        console.log(err);
+        taskLibrary.setResult(taskLibrary.TaskResult.Failed, err);
     });
 }
 
