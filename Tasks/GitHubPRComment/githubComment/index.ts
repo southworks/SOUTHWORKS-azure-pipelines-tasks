@@ -3,6 +3,10 @@ import gitClient = require('@octokit/rest');
 import path = require('path');
 import fs = require('fs');
 
+//We use HTML comments to hide the flagComment in the comment.
+const flagComment = "<!-- Commented using GitHubPRComment. -->";
+const messageNotFound = "Message not found";
+
 const getFilesFromDir = (
     filePath: string,
     extName: string,
@@ -78,18 +82,18 @@ const clientWithAuth = new gitClient({
 });
 
 var files = getFilesFromDir(
-    taskLibrary.getInput("bodyFilePath"), '.' + taskLibrary.getInput('extension'),
+    taskLibrary.getInput("bodyFilePath")!, '.' + taskLibrary.getInput('extension'),
     taskLibrary.getBoolInput("getSubFolders")
 );
 var message = combineMessageBody(files);
-var repo = taskLibrary.getInput('repository').split('/');
+var repo = taskLibrary.getInput('repository')!.split('/');
 var keepCommentHistory = taskLibrary.getBoolInput("keepCommentHistory");
 
 const comment: gitClient.IssuesCreateCommentParams = {
     owner: repo[0],
     repo: repo[1],
-    number: parseInt(taskLibrary.getInput('prNumber')),
-    body: "\r\n" + message + "\r\n" + "Commented using GitHubPRComment",
+    number: parseInt(taskLibrary.getInput('prNumber')!),
+    body: "\r\n" + message + "\r\n" + flagComment,
 };
 
 const listCommentParams: gitClient.IssuesListCommentsForRepoParams = {
@@ -103,23 +107,27 @@ const deleteCommentParams: gitClient.IssuesDeleteCommentParams = {
     comment_id: 0,
 };
 
-const flagComment = "Commented using GitHubPRComment";
-
 async function run() {
 
+    if (message) {
+        await clientWithAuth.issues
+            .createComment(comment)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                taskLibrary.setResult(taskLibrary.TaskResult.Failed, err);
+            });
 
-    await clientWithAuth.issues
-        .createComment(comment)
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            taskLibrary.setResult(taskLibrary.TaskResult.Failed, err);
-        });
+        if (!keepCommentHistory) {
+            deleteComments();
+        }
 
-    if (!keepCommentHistory) {
-        deleteComments();
     }
+    else {
+        taskLibrary.setResult(taskLibrary.TaskResult.SucceededWithIssues, messageNotFound);
+    }
+
 }
 
 run();

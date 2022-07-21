@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 0
+        "Patch": 1
     },
     "instanceNameFormat": "GitHub Comment Publisher",
     "inputs": [
@@ -60,6 +60,14 @@
             "defaultValue": "",
             "required": true,
             "helpMarkDown": "Get all the .json files including the ones in sub-folders"
+        },
+        {
+            "name": "keepCommentHistory",
+            "type": "boolean",
+            "label": "Keep comment history",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "If set to true, it generates a new comment every time a PR is updated or created. Otherwise, it keeps only the last automatic comment."
         }
     ],
     "execution": {
