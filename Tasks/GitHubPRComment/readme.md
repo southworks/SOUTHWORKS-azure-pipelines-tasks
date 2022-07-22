@@ -24,22 +24,33 @@ Path to the file/s that you want to get the PR comments from. If you specify a f
 
 **Use sub-folders**
 
-Checking this option will enable to search for all the files of the specified extensions in all the folders and sub-folders contained in the previously selected path 
+Checking this option will enable to search for all the files of the specified extensions in all the folders and sub-folders contained in the previously selected path
+
+**Keep Comment History**
+
+Checking this option will keep the previous automatic comments. Otherwise, will keep the last automatic comment only. 
 
 ## Basic Example
 
 We prepared a simple example using the task by creating a pull request from a branch containing a message example. When the PR is created, the Azure Pipelines build is triggered, and the GitHub PR Comment task picks up the plain text file from the PR branch and creates a message on the PR with its contents.
+Additionally, we tested the same example by turning off the Keep Comment History flag.
 
 #### Azure Pipelines Setup
 
-![PipelineSettings1](https://user-images.githubusercontent.com/42191764/59932138-ef855a80-941c-11e9-9d64-e62c46788ce2.png)
+![PipelineSettings1](https://github.com/southworks/SOUTHWORKS-azure-pipelines-tasks/blob/0efd43ea9a60ff7a8e236b96e36202070e35af8d/Tasks/GitHubPRComment/images/BasicGuide/PipelineSettings1.png)
 
-![PipelineSettings2](https://user-images.githubusercontent.com/42191764/59932560-d4671a80-941d-11e9-9e8f-ed67821de248.png)
+![PipelineSettings2](https://github.com/southworks/SOUTHWORKS-azure-pipelines-tasks/blob/0efd43ea9a60ff7a8e236b96e36202070e35af8d/Tasks/GitHubPRComment/images/BasicGuide/PipelineSettings2.png)
 
-![PipelineSettings3](https://user-images.githubusercontent.com/42191764/59932624-f9f42400-941d-11e9-861b-a184700c5820.png)
+![PipelineSettings3](https://github.com/southworks/SOUTHWORKS-azure-pipelines-tasks/blob/0efd43ea9a60ff7a8e236b96e36202070e35af8d/Tasks/GitHubPRComment/images/BasicGuide/PipelineSettings3.png)
 
-#### [Results](https://github.com/southworkscom/SOUTHWORKS-azure-pipelines-tasks/pull/12)
+![PipelineSettings4](https://github.com/southworks/SOUTHWORKS-azure-pipelines-tasks/blob/0efd43ea9a60ff7a8e236b96e36202070e35af8d/Tasks/GitHubPRComment/images/BasicGuide/PipelineSettings4.png)
 
-![PipelineResults](https://user-images.githubusercontent.com/42191764/59930566-83edbe00-9419-11e9-9f84-571c719ce706.png)
+#### Results
+
+Keeping previous automatic comments.
+![PipelineResults1](https://github.com/southworks/SOUTHWORKS-azure-pipelines-tasks/blob/0efd43ea9a60ff7a8e236b96e36202070e35af8d/Tasks/GitHubPRComment/images/BasicGuide/PipelineResults1.jpg)
+
+Discarding previous automatic comments.
+![PipelineResults2](https://github.com/southworks/SOUTHWORKS-azure-pipelines-tasks/blob/0efd43ea9a60ff7a8e236b96e36202070e35af8d/Tasks/GitHubPRComment/images/BasicGuide/PipelineResults2.jpg)
 
 
