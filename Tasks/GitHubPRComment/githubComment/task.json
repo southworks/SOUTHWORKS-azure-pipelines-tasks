@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 1
+        "Patch": 3
     },
     "instanceNameFormat": "GitHub Comment Publisher",
     "inputs": [
@@ -65,8 +65,8 @@
             "name": "keepCommentHistory",
             "type": "boolean",
             "label": "Keep comment history",
-            "defaultValue": "",
-            "required": true,
+            "defaultValue": false,
+            "required": false,
             "helpMarkDown": "If set to true, it generates a new comment every time a PR is updated or created. Otherwise, it keeps only the last automatic comment."
         }
     ],
