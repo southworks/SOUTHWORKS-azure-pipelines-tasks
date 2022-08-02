@@ -72,6 +72,11 @@ For the build trigger configure  **Pull request validation**.
 
 With this configuration, whenever a person opens a Pull Request introducing changes that will break compatibilities with the current released version, the build process will be marked as ***Failed***.
 
+## Unexpected Behavior
+
+The presence of companion assemblies in the implementation folder can produce false positives.
+For example, having the *Microsoft.PowerFx.Core.dll* and *Microsoft.PowerFx.Transport.Attributes.dll* in the implementation folder compared against the *PowerFx.Core.dll* in the contracts folder, will result in the following error: "*CannotChangeAttribute : Attribute...changed from '[TransportTypeAttribute(0, true, null, null, false)]' in the contract to '[TransportTypeAttribute(TransportKind.ByValue, true, null, null, false)]' in the implementation.*"
+
 ## More Information
 
 - [Multi-Configuration](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases?view=azure-devops&tabs=yaml#multi-configuration).To configure multiple assemblies and versions without having to clone the build.
