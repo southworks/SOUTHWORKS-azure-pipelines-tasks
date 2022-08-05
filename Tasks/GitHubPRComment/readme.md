@@ -37,20 +37,18 @@ Additionally, we tested the same example by turning off the Keep Comment History
 
 #### Azure Pipelines Setup
 
-![PipelineSettings1](https://github.com/southworks/SOUTHWORKS-azure-pipelines-tasks/blob/0efd43ea9a60ff7a8e236b96e36202070e35af8d/Tasks/GitHubPRComment/images/BasicGuide/PipelineSettings1.png)
+<img width="1035" alt="PipelineSettings1" src="https://user-images.githubusercontent.com/64815358/182950828-130b4381-abaa-427c-a778-815b04dd1038.png">
 
-![PipelineSettings2](https://github.com/southworks/SOUTHWORKS-azure-pipelines-tasks/blob/0efd43ea9a60ff7a8e236b96e36202070e35af8d/Tasks/GitHubPRComment/images/BasicGuide/PipelineSettings2.png)
+<img width="1035" alt="PipelineSettings2" src="https://user-images.githubusercontent.com/64815358/182950852-f5ec3498-1e24-4a38-9112-74ed22a5a825.png">
 
-![PipelineSettings3](https://github.com/southworks/SOUTHWORKS-azure-pipelines-tasks/blob/0efd43ea9a60ff7a8e236b96e36202070e35af8d/Tasks/GitHubPRComment/images/BasicGuide/PipelineSettings3.png)
+<img width="1036" alt="PipelineSettings3" src="https://user-images.githubusercontent.com/64815358/182950859-85dc5e87-76e9-4014-8afb-83ddbc85c221.png">
 
-![PipelineSettings4](https://github.com/southworks/SOUTHWORKS-azure-pipelines-tasks/blob/0efd43ea9a60ff7a8e236b96e36202070e35af8d/Tasks/GitHubPRComment/images/BasicGuide/PipelineSettings4.png)
+<img width="1035" alt="PipelineSettings4" src="https://user-images.githubusercontent.com/64815358/182950868-db769da7-ea88-49e5-85bd-e49e621d7b4b.png">
 
 #### Results
 
 Keeping previous automatic comments.
-![PipelineResults1](https://github.com/southworks/SOUTHWORKS-azure-pipelines-tasks/blob/0efd43ea9a60ff7a8e236b96e36202070e35af8d/Tasks/GitHubPRComment/images/BasicGuide/PipelineResults1.jpg)
+![PipelineResults1](https://user-images.githubusercontent.com/64815358/182950943-09c32d51-7ffe-4fa4-b06b-218e795d7dcb.jpg)
 
 Discarding previous automatic comments.
-![PipelineResults2](https://github.com/southworks/SOUTHWORKS-azure-pipelines-tasks/blob/0efd43ea9a60ff7a8e236b96e36202070e35af8d/Tasks/GitHubPRComment/images/BasicGuide/PipelineResults2.jpg)
-
-
+![PipelineResults2](https://user-images.githubusercontent.com/64815358/182950960-3a27e33e-74c6-426a-ba63-f59777b2e310.jpg)
