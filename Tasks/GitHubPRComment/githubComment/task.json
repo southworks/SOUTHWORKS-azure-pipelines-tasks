@@ -9,9 +9,9 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 4
+        "Patch": 5
     },
-    "instanceNameFormat": "GitHub Comment Publisher",
+    "instanceNameFormat": "GitHub PR Comment",
     "inputs": [
         {
             "name": "userToken",
