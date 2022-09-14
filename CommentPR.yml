@@ -13,6 +13,7 @@ jobs:
           prNumber: 37
           bodyFilePath: ./
           getSubFolders: true
+          keepCommentHistory: false
 
 pool:
     vmImage: "windows-latest"
