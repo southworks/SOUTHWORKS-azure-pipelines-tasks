@@ -1,4 +1,4 @@
-# Azure Pipelines Tasks (Update)
+# Azure Pipelines Tasks (Updated)
 
 This repo contains a set of custom tasks for Azure Pipelines.
 
