@@ -9,7 +9,7 @@ jobs:
       - task: SOUTHWORKS.github-pr-comment.custom-publish-comment-task.github-pr-comment@0
         displayName: 'GitHub PR Comment'
         inputs:
-          userToken: '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'
+          userToken: "$(TOKEN)"
           prNumber: 37
           bodyFilePath: ./
           getSubFolders: true
