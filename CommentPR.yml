@@ -10,7 +10,6 @@ jobs:
         displayName: 'GitHub PR Comment'
         inputs:
           userToken: "$(TOKEN)"
-          prNumber: 37
           bodyFilePath: ./
           getSubFolders: true
           keepCommentHistory: false
