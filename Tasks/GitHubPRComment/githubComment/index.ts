@@ -7,19 +7,49 @@ import fs = require('fs');
 const flagComment = "<!-- DO NOT DELETE THIS COMMENT. -->";
 const messageNotFound = "Message not found";
 
-const getFilesFromDir = (
-    filePath: string,
-    extName: string,
-    recursive: boolean
-): string[] => {
-    if (!fs.existsSync(filePath)) {
-        console.log("File path does not exist: ", filePath);
-        return [];
-    }
-    var result: string[] = [];
-    iterateFilesFromDir(filePath, extName, recursive, result);
+var userToken = taskLibrary.getInput("userToken");
+var bodyFilePath = taskLibrary.getInput("bodyFilePath");
+var extension = taskLibrary.getInput("extension");
+var getSubFolders = taskLibrary.getBoolInput("getSubFolders");
+var repository = taskLibrary.getInput("repository");
+var keepCommentHistory = taskLibrary.getBoolInput("keepCommentHistory");
+var prNumber = parseInt(taskLibrary.getInput('prNumber')!);
 
-    return result;
+const clientWithAuth = new gitClient({
+    auth: "token " + userToken,
+    userAgent: "octokit/rest.js v1.2.3",
+});
+
+async function run() {
+    if (message) {
+        taskLibrary.debug(`[run] Creating comment...`);
+        await clientWithAuth.issues
+            .createComment(comment)
+            .then((res) => {
+                taskLibrary.debug(`[run] Comment created`);
+                console.log(res);
+                if (!keepCommentHistory) {
+                    deleteComments();
+                }
+            })
+            .catch((err) => {
+                taskLibrary.setResult(taskLibrary.TaskResult.Failed, err);
+            });
+    }
+    else {
+        taskLibrary.setResult(taskLibrary.TaskResult.SucceededWithIssues, messageNotFound);
+    }
+}
+
+const combineMessageBody = (files: string[]): string => {
+    taskLibrary.debug(`[combineMessageBody] Merging files' content...`);
+    var body: string = "";
+    files.forEach((file) => {
+        var bodyFile = fs.readFileSync(file);
+        body += bodyFile + "\r\n";
+    });
+    taskLibrary.debug(`Message content: ${body}`);
+    return body;
 };
 
 const iterateFilesFromDir = (
@@ -28,7 +58,9 @@ const iterateFilesFromDir = (
     recursive: boolean,
     result: string[]
 ): string[] => {
+    taskLibrary.debug(`Looking for extension ${extName} in ${filePath}`);
     var files = fs.readdirSync(filePath);
+    taskLibrary.debug(`Files found in ${filePath}: ${files}`);
     files.forEach((file) => {
         var fileName = path.join(filePath, file);
         var isFolder = fs.lstatSync(fileName);
@@ -44,28 +76,61 @@ const iterateFilesFromDir = (
     return result;
 };
 
-const combineMessageBody = (files: string[]): string => {
-    var body: string = "";
-    files.forEach((file) => {
-        var bodyFile = fs.readFileSync(file);
-        body += bodyFile + "\r\n";
+const getFilesFromDir = (
+    filePath: string,
+    extName: string,
+    recursive: boolean
+): string[] => {
+    if (!fs.existsSync(filePath)) {
+        console.log(`File path does not exist: ${filePath}`);
+        return [];
+    }
+    var result: string[] = [];
+    var fileNames: string[] = [];
+    iterateFilesFromDir(filePath, extName, recursive, result);
+    result.forEach(element => {
+        var fileName = path.basename(element);
+        fileNames.push(fileName);
     });
-    return body;
+
+    taskLibrary.debug(`[getFilesFromDir] Files with extension ${extName} found: ` + fileNames);
+
+    return result;
 };
 
-/*
- * Deletes previous automatically generated comments that contain the comment flag.
- */
+var files = getFilesFromDir(
+    bodyFilePath!,
+    '.' + extension,
+    getSubFolders
+);
+
+var message = combineMessageBody(files);
+
+var [owner, repo] = repository!.split('/');
+
+const comment: gitClient.IssuesCreateCommentParams = {
+    owner,
+    repo,
+    number: prNumber!,
+    body: "\r\n" + message + "\r\n" + flagComment,
+};
+
 const deleteComments = async () => {
+    taskLibrary.debug(`[deleteComments] Running deleteComments method...`);
     await clientWithAuth.issues
-        .listCommentsForRepo(listCommentParams)
+        .listComments({ owner, repo, number: prNumber })
         .then((res) => {
+            taskLibrary.debug(`[deleteComments] Listing elements...`);
+            res.data.forEach(element => {
+                taskLibrary.debug(`[deleteComments] Comment ID: ${element.id} Comment body: ${element.body}`);
+            });
+            taskLibrary.debug(`Comments found ${res.data.length}`);
             // We don't iterate the whole collection in order to not remove the last comment.
             for (let index = 0; index < res.data.length - 1; index++) {
                 const element = res.data[index];
                 if (element.body.indexOf(flagComment) != -1) {
-                    deleteCommentParams.comment_id = element.id;
-                    clientWithAuth.issues.deleteComment(deleteCommentParams);
+                    taskLibrary.debug(`Deleting comment ${element.id} with body ${element.body}`);
+                    clientWithAuth.issues.deleteComment({ owner, repo, comment_id: element.id });
                 }
             }
         })
@@ -73,55 +138,5 @@ const deleteComments = async () => {
             taskLibrary.setResult(taskLibrary.TaskResult.Failed, err);
         });
 };
-
-const clientWithAuth = new gitClient({
-    auth: "token " + taskLibrary.getInput("userToken"),
-    userAgent: "octokit/rest.js v1.2.3",
-});
-
-var files = getFilesFromDir(
-    taskLibrary.getInput("bodyFilePath")!, '.' + taskLibrary.getInput('extension'),
-    taskLibrary.getBoolInput("getSubFolders")
-);
-var message = combineMessageBody(files);
-var repo = taskLibrary.getInput('repository')!.split('/');
-var keepCommentHistory = taskLibrary.getBoolInput("keepCommentHistory");
-
-const comment: gitClient.IssuesCreateCommentParams = {
-    owner: repo[0],
-    repo: repo[1],
-    number: parseInt(taskLibrary.getInput('prNumber')!),
-    body: "\r\n" + message + "\r\n" + flagComment,
-};
-
-const listCommentParams: gitClient.IssuesListCommentsForRepoParams = {
-    owner: repo[0],
-    repo: repo[1],
-};
-
-const deleteCommentParams: gitClient.IssuesDeleteCommentParams = {
-    owner: repo[0],
-    repo: repo[1],
-    comment_id: 0,
-};
-
-async function run() {
-    if (message) {
-        await clientWithAuth.issues
-            .createComment(comment)
-            .then((res) => {
-                console.log(res);
-                if (!keepCommentHistory) {
-                    deleteComments();
-                }
-            })
-            .catch((err) => {
-                taskLibrary.setResult(taskLibrary.TaskResult.Failed, err);
-            });
-    }
-    else {
-        taskLibrary.setResult(taskLibrary.TaskResult.SucceededWithIssues, messageNotFound);
-    }
-}
 
 run();
