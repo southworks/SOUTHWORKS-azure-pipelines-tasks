@@ -52,3 +52,12 @@ Keeping previous automatic comments.
 
 Discarding previous automatic comments.
 ![PipelineResults2](https://user-images.githubusercontent.com/64815358/182950960-3a27e33e-74c6-426a-ba63-f59777b2e310.jpg)
+
+## Debug Mode
+
+The task can be debugged by activating the "Enable System Diagnostics" option in the pipeline.
+
+![DebugFlag](https://user-images.githubusercontent.com/64815358/193309215-6d488797-4052-46ca-b725-25ea20e35329.png)
+
+Task output with Debug Flag enabled.
+![DebugResult](https://user-images.githubusercontent.com/64815358/193309646-61294c71-965c-4dde-b1e0-8aba2b1fa762.png)
